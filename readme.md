@@ -27,3 +27,7 @@ First a basic setup, later provider and middlewares
 and setting loadable components
 
 - https://github.com/CaptainN/npdev-react-loadable
+
+## React Hook Forms
+
+- https://react-hook-form.com/get-started#Quickstart
