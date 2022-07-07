@@ -31,3 +31,8 @@ and setting loadable components
 ## React Hook Forms
 
 - https://react-hook-form.com/get-started#Quickstart
+
+## Auth, Host, Layout Providers & Middlewares
+
+- https://reactrouter.com/docs/en/v6/getting-started/concepts
+- https://reactrouter.com/docs/en/v6/examples/auth

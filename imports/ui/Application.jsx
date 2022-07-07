@@ -1,44 +1,36 @@
 import React from "react";
-import { Routes, Route, Outlet } from "react-router-dom";
-import { Loadable } from "meteor/npdev:react-loadable";
+import { Routes, Route } from "react-router-dom";
 
-const Loading = () => <p>Loading ...</p>;
+import { HostProvider } from "./providers/HostProvider";
+import { AuthProvider } from "./providers/AuthProvider";
+import { LayoutProvider } from "./providers/LayoutProvider";
 
-const DefaultLayout = Loadable({
-  loader: () => import("./@/layouts/DefaultLayout"),
-  loading: Loading,
-});
-const Welcome = Loadable({
-  loader: () => import("./main/Welcome"),
-  loading: Loading,
-});
-const Login = Loadable({
-  loader: () => import("./auth/Login"),
-  loading: Loading,
-});
-const Homepage = Loadable({
-  loader: () => import("./main/Homepage"),
-  loading: Loading,
-});
-const Dashboard = Loadable({
-  loader: () => import("./main/Dashboard"),
-  loading: Loading,
-});
-const NotFound = Loadable({
-  loader: () => import("./main/NotFound"),
-  loading: Loading,
-});
+import { AuthMiddleware } from "./middlewares/AuthMiddleware";
+
+import {
+  Homepage,
+  Login,
+  Username,
+  Dashboard,
+  NotFound,
+} from "./routes/@loadables";
 
 export default function Application() {
   return (
-    <Routes>
-      <Route element={<DefaultLayout />}>
-        <Route index element={<Homepage />} />
-        <Route path="welcome" element={<Welcome />} />
-        <Route path="login" element={<Login />} />
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="*" element={<NotFound />} />
-      </Route>
-    </Routes>
+    <HostProvider>
+      <AuthProvider>
+        <LayoutProvider>
+          <Routes>
+            <Route index element={<Homepage />} />
+            <Route path="login" element={<Login />} />
+            <Route path="/*" element={<AuthMiddleware />}>
+              <Route path="@:username" element={<Username />} />
+              <Route path="dashboard" element={<Dashboard />} />
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </LayoutProvider>
+      </AuthProvider>
+    </HostProvider>
   );
 }
