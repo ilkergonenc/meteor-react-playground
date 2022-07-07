@@ -8,7 +8,7 @@ export const Hello = () => {
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto text-center py-8">
       <h1 className="text-3xl">Welcome to Meteor!</h1>
       <button onClick={increment} className="px-4 py-2 border rounded">
         Click Me
