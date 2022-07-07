@@ -7,7 +7,7 @@ import { useHost } from "./HostProvider";
 export function LayoutProvider({ children }) {
   const auth = useAuth();
   const host = useHost();
-  const navigate = useNavigate();
+  const nav = useNavigate();
 
   return (
     <section className="app">
@@ -17,17 +17,11 @@ export function LayoutProvider({ children }) {
             <li>
               <a href="/">Home</a>
             </li>
-            {/* <li>
-            <a href="/welcome">Welcome</a>
-          </li> */}
             {!auth.user && (
               <li>
                 <a href="/login">Login</a>
               </li>
             )}
-            {/* <li>
-            <a href="/not-found">NotFound</a>
-          </li> */}
             {auth.user && (
               <li>
                 <a href={`/@${auth.user}`}>{`@${auth.user}`}</a>
@@ -44,7 +38,7 @@ export function LayoutProvider({ children }) {
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    auth.signout(() => navigate("/", { replace: true }));
+                    auth.signout(() => nav("/", { replace: true }));
                   }}
                 >
                   Sign out
