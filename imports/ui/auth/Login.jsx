@@ -1,12 +1,41 @@
 import React from "react";
+import { useForm } from "react-hook-form";
+import { FormControl } from "../@/components/FormControl";
 
 export default function Login() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => console.log(data);
+
   return (
-    <div>
-      <h1 className="text-3xl mb-4">Welcome to Login!</h1>
-      <form>
-        <input type="text" />
-      </form>
-    </div>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col space-y-2 w-1/3 mx-auto my-8"
+    >
+      <legend className="text-left text-3xl font-thin my-8">Login</legend>
+      <FormControl
+        handle="username"
+        label="Username"
+        holder="@username"
+        type="text"
+        register={register}
+        rules={{ required: true }}
+        errors={errors}
+      />
+      <FormControl
+        handle="password"
+        label="Password"
+        holder="********"
+        type="password"
+        register={register}
+        helper={<span>Wierd but true!</span>}
+        rules={{ required: true }}
+        errors={errors}
+      />
+      <input type="submit" className="btn ml-auto" value="Sign in" />
+    </form>
   );
 }
