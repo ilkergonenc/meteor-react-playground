@@ -5,8 +5,10 @@ import { Hello } from "./Hello";
 import { NotFound } from "./NotFound";
 
 export const App = () => (
-  <Routes>
-    <Route index element={<Hello />} />
-    <Route path="*" element={<NotFound />} />
-  </Routes>
+  <div className="app">
+    <Routes>
+      <Route index element={<Hello />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  </div>
 );

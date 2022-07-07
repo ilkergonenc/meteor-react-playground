@@ -2,8 +2,11 @@ import React from "react";
 
 export const NotFound = () => {
   return (
-    <div className="container mx-auto text-center py-8">
-      <p>Not Found</p>
+    <div>
+      <p className="mb-6">Not Found</p>
+      <a href="/" className="btn">
+        Go Home
+      </a>
     </div>
   );
 };
