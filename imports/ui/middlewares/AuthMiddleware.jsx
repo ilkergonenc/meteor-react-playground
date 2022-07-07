@@ -4,9 +4,9 @@
 import React from "react";
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 
-import { useAuth } from "./AuthProvider";
+import { useAuth } from "../providers/AuthProvider";
 
-export default function AuthMiddleware() {
+export function AuthMiddleware({ children }) {
   let auth = useAuth();
   let location = useLocation();
 
@@ -15,7 +15,7 @@ export default function AuthMiddleware() {
     // trying to go to when they were redirected. This allows us to send them
     // along to that page after they login, which is a nicer user experience
     // than dropping them off on the home page.
-    return <Navigate to="/" state={{ from: location }} replace />;
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   return <Outlet />;

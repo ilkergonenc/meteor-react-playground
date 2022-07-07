@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   if (loading) {
-    return <div>loading user ...</div>;
+    return <span className="sr-only">loading user ...</span>;
   } else {
     return (
       <AuthContext.Provider value={{ user, signin, signout }}>

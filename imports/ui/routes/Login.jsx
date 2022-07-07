@@ -2,8 +2,8 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-import { useAuth } from "./@/AuthProvider";
-import { FormControl } from "../@/components/FormControl";
+import { useAuth } from "../providers/AuthProvider";
+import { FormControl } from "../components/FormControl";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ export default function Login() {
           // user experience.
           navigate(from, { replace: true });
         });
-      }, 1000);
+      }, 100);
     });
   }
 

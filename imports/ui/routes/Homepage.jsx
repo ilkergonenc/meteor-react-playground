@@ -1,7 +1,7 @@
 import { Meteor } from "meteor/meteor";
 import React from "react";
 
-import { useAuth } from "../auth/@/AuthProvider";
+import { useAuth } from "../providers/AuthProvider";
 
 export default function Homepage() {
   const auth = useAuth();
@@ -11,12 +11,12 @@ export default function Homepage() {
       <h1 className="text-3xl mb-4">
         Welcome to Homepage, {auth.user ? auth.user : "Jane Doe"} !
       </h1>
-      <a href="/not-found" className="btn">
+      {/* <a href="/not-found" className="btn">
         Go no where!
       </a>
       <a href="/dashboard" className="btn">
         Dashboard
-      </a>
+      </a> */}
     </div>
   );
 }
