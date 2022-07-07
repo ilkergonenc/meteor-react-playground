@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .app {
+    @apply container mx-auto text-center py-8;
+  }
+  .btn {
+    @apply px-4 py-2 border rounded;
+  }
+}

@@ -9,7 +9,8 @@ export const Hello = () => {
 
   return (
     <div>
-      <button onClick={increment} className="px-4 py-2 border rounded">
+      <h1 className="text-3xl">Welcome to Meteor!</h1>
+      <button onClick={increment} className="btn">
         Click Me
       </button>
       <p>You've pressed the button {counter} times.</p>
