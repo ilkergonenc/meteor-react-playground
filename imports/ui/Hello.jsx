@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export const Hello = () => {
   const [counter, setCounter] = useState(0);
@@ -9,7 +9,9 @@ export const Hello = () => {
 
   return (
     <div>
-      <button onClick={increment}>Click Me</button>
+      <button onClick={increment} className="px-4 py-2 border rounded">
+        Click Me
+      </button>
       <p>You've pressed the button {counter} times.</p>
     </div>
   );
