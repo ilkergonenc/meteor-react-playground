@@ -7,6 +7,10 @@ Planing to build an enterprise level prototyping stack with Meteor and React
 
 for starter.
 
+What I am trying to achive is a light framework for enterprise level prototyping
+
+should be first of all secure, optimized, tested and logged to be at an enterprice level
+
 ## Tailwindcss & Postcss Setup
 
 With new version, Meteor now supports postcss parsing with its own `standard-minifier-css` package.
@@ -14,8 +18,12 @@ With new version, Meteor now supports postcss parsing with its own `standard-min
 - https://docs.meteor.com/packages/standard-minifier-css.html
 - https://guide.meteor.com/2.7-migration.html
 
-## React Router 6
+## React Router & React Loadable
 
 First a basic setup, later provider and middlewares
 
 - https://reactrouter.com/docs/en/v6/getting-started/installation#basic-installation
+
+and setting loadable components
+
+- https://github.com/CaptainN/npdev-react-loadable

@@ -1,6 +1,6 @@
 import React from "react";
 
-export const NotFound = () => {
+export default NotFound = () => {
   return (
     <div>
       <p className="mb-6">Not Found</p>
