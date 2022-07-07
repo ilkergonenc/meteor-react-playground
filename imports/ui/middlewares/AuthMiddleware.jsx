@@ -6,7 +6,7 @@ import { useLocation, Navigate, Outlet } from "react-router-dom";
 
 import { useAuth } from "../providers/AuthProvider";
 
-export function AuthMiddleware({ children }) {
+export function AuthMiddleware() {
   let auth = useAuth();
   let location = useLocation();
 
