@@ -1,11 +1,14 @@
 import React from "react";
-import { Hello } from "./Hello.jsx";
-import { Info } from "./Info.jsx";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import { Hello } from "./Hello";
+import { NotFound } from "./NotFound";
 
 export const App = () => (
-  <div className="container mx-auto">
-    <h1 className="text-3xl">Welcome to Meteor!</h1>
-    <Hello />
-    {/* <Info/> */}
-  </div>
+  <BrowserRouter>
+    <Routes>
+      <Route index element={<Hello />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  </BrowserRouter>
 );
