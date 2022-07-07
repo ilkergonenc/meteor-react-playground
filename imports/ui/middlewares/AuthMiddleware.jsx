@@ -7,8 +7,8 @@ import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../providers/AuthProvider";
 
 export function AuthMiddleware() {
-  let auth = useAuth();
-  let location = useLocation();
+  const auth = useAuth();
+  const location = useLocation();
 
   if (!auth.user) {
     // Redirect them to the /login page, but save the current location they were
