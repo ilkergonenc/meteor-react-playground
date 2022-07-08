@@ -41,3 +41,8 @@ and setting loadable components
 
 - https://headlessui.com/
 - https://tailwindui.com/components/preview
+
+## React Bootstrap Icons
+
+- https://icons.getbootstrap.com/
+- https://github.com/ismamz/react-bootstrap-icons#readme
