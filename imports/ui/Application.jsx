@@ -6,6 +6,7 @@ import { AuthProvider } from "./providers/AuthProvider";
 import { LayoutProvider } from "./providers/LayoutProvider";
 
 import { AuthMiddleware } from "./middlewares/AuthMiddleware";
+import { DashboardLayout } from "./middlewares/LayoutMiddlewares/DashboardLayout";
 
 import {
   Homepage,
@@ -22,12 +23,19 @@ export default function Application() {
         <LayoutProvider>
           <Routes>
             <Route index element={<Homepage />} />
+
             <Route path="login" element={<Login />} />
+
             <Route path="/*" element={<AuthMiddleware />}>
               <Route path="@:username" element={<Username />} />
-              <Route path="dashboard" element={<Dashboard />} />
+
+              <Route path="dashboard" element={<DashboardLayout />}>
+                <Route index element={<Dashboard />} />
+              </Route>
+
               <Route path="*" element={<NotFound />} />
             </Route>
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </LayoutProvider>
