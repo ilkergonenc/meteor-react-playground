@@ -23,14 +23,19 @@ export default function Application() {
         <LayoutProvider>
           <Routes>
             <Route index element={<Homepage />} />
+
             <Route path="login" element={<Login />} />
+
             <Route path="/*" element={<AuthMiddleware />}>
               <Route path="@:username" element={<Username />} />
+
               <Route path="dashboard" element={<DashboardLayout />}>
                 <Route index element={<Dashboard />} />
               </Route>
+
               <Route path="*" element={<NotFound />} />
             </Route>
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </LayoutProvider>
