@@ -36,3 +36,13 @@ and setting loadable components
 
 - https://reactrouter.com/docs/en/v6/getting-started/concepts
 - https://reactrouter.com/docs/en/v6/examples/auth
+
+## Headless & Tailwind UI Components
+
+- https://headlessui.com/
+- https://tailwindui.com/components/preview
+
+## React Bootstrap Icons
+
+- https://icons.getbootstrap.com/
+- https://github.com/ismamz/react-bootstrap-icons#readme
