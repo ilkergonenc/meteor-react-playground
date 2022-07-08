@@ -36,3 +36,8 @@ and setting loadable components
 
 - https://reactrouter.com/docs/en/v6/getting-started/concepts
 - https://reactrouter.com/docs/en/v6/examples/auth
+
+## Headless & Tailwind UI Components
+
+- https://headlessui.com/
+- https://tailwindui.com/components/preview
