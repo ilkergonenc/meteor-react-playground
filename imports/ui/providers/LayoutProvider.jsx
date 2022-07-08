@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext, createContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "./AuthProvider";
 import { useHost } from "./HostProvider";
 
-export function LayoutProvider({ children }) {
+const LayoutContext = createContext(null);
+
+function LayoutTemplate({ children }) {
   const auth = useAuth();
   const host = useHost();
   const nav = useNavigate();
@@ -54,4 +56,16 @@ export function LayoutProvider({ children }) {
       </footer>
     </section>
   );
+}
+
+export function LayoutProvider({ children }) {
+  return (
+    <LayoutContext.Provider value={{ layout: true }}>
+      <LayoutTemplate>{children}</LayoutTemplate>
+    </LayoutContext.Provider>
+  );
+}
+
+export function useLayout() {
+  return useContext(LayoutContext);
 }
