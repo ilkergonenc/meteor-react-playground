@@ -26,6 +26,7 @@ export default function Application() {
             <Route path="/*" element={<AuthMiddleware />}>
               <Route path="@:username" element={<Username />} />
               <Route path="dashboard" element={<Dashboard />} />
+              <Route path="*" element={<NotFound />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
