@@ -46,3 +46,7 @@ and setting loadable components
 
 - https://icons.getbootstrap.com/
 - https://github.com/ismamz/react-bootstrap-icons#readme
+
+## Improving Forms
+
+- https://github.com/tailwindlabs/tailwindcss-forms
