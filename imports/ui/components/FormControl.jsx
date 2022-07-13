@@ -5,10 +5,8 @@ export function FormControl(props) {
     props;
 
   return (
-    <div className="relative">
-      <label htmlFor={handle} className="form-label">
-        {label}
-      </label>
+    <label htmlFor={handle} className="block">
+      <span className="form-label">{label}</span>
       <input
         {...register(handle, rules ? rules : {})}
         type={type}
@@ -18,13 +16,13 @@ export function FormControl(props) {
         className="form-input"
       />
       {helper && (
-        <div id={handle + "Help"} className="form-text-helper">
+        <span id={handle + "Help"} className="form-text-helper">
           {helper}
-        </div>
+        </span>
       )}
       {errors[handle] && (
         <span className="form-text-error">This field is required</span>
       )}
-    </div>
+    </label>
   );
 }

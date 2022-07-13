@@ -17,43 +17,47 @@ export default function Login() {
     formState: { errors },
   } = useForm();
 
-  function onSubmit() {}
+  function onSubmit({ username, email, password }) {
+    alert(`username: ${username}\nemail: ${email}\npassword: ${password}`);
+  }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col space-y-2 w-1/3 mx-auto my-8"
-    >
-      <legend className="text-left text-3xl font-thin my-8">Signup</legend>
-      <FormControl
-        handle="username"
-        label="Username"
-        holder="@username"
-        type="text"
-        register={register}
-        rules={{ required: true }}
-        errors={errors}
-      />
-      <FormControl
-        handle="email"
-        label="Email"
-        holder="youraddress@mail.com"
-        type="email"
-        register={register}
-        rules={{ required: true }}
-        errors={errors}
-      />
-      <FormControl
-        handle="password"
-        label="Password"
-        holder="********"
-        type="password"
-        register={register}
-        // helper={<span>Wierd but true!</span>}
-        rules={{ required: true }}
-        errors={errors}
-      />
-      <input type="submit" className="btn ml-auto" value="Sign in" />
-    </form>
+    <div className="w-1/3 mx-auto my-8">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="grid grid-cols-1 gap-6 "
+      >
+        <legend className="text-left text-3xl font-thin my-8">Signup</legend>
+        <FormControl
+          handle="username"
+          label="Username"
+          holder="@username"
+          type="text"
+          register={register}
+          rules={{ required: true }}
+          errors={errors}
+        />
+        <FormControl
+          handle="email"
+          label="Email"
+          holder="youraddress@mail.com"
+          type="email"
+          register={register}
+          rules={{ required: true }}
+          errors={errors}
+        />
+        <FormControl
+          handle="password"
+          label="Password"
+          holder="********"
+          type="password"
+          register={register}
+          helper="Wierd but true!"
+          rules={{ required: true }}
+          errors={errors}
+        />
+        <input type="submit" className="btn ml-auto" value="Sign up" />
+      </form>
+    </div>
   );
 }
