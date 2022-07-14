@@ -26,3 +26,6 @@ react-meteor-data # React higher-order component for reactively tracking Meteor 
 npdev:react-loadable
 accounts-base
 accounts-password
+aldeed:collection2
+matb33:collection-hooks
+dburles:collection-helpers
