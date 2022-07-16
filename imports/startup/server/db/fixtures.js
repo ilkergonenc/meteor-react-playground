@@ -1,14 +1,18 @@
 import { Meteor } from "meteor/meteor";
 import { Accounts } from "meteor/accounts-base";
 
-const SEED_USERNAME = "noone";
-const SEED_PASSWORD = "01010101";
+const USER_NO_ONE = {
+  username: "noone",
+  password: "01010101",
+  email: "free.ilkergonenc@gmail.com",
+  profile: {
+    firstname: "No",
+    lastname: "One",
+  },
+};
 
 Meteor.startup(() => {
-  if (!Accounts.findUserByUsername(SEED_USERNAME)) {
-    Accounts.createUser({
-      username: SEED_USERNAME,
-      password: SEED_PASSWORD,
-    });
+  if (!Accounts.findUserByUsername(USER_NO_ONE.username)) {
+    Accounts.createUser({ ...USER_NO_ONE });
   }
 });
