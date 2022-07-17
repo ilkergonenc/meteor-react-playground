@@ -1,7 +1,7 @@
-import SchemaMiddleware from "./SchemaMiddleware";
-import AuthMiddleware from "./AuthMiddleware";
-import UniqueKeysMiddleware from "./UniqueKeysMiddleware";
-import OwnerMiddleware from "./OwnerMiddleware";
+import SchemaMiddleware from "./schemaMiddleware";
+import AuthMiddleware from "./authMiddleware";
+import UniqueKeysMiddleware from "./uniqueKeysMiddleware";
+import OwnerMiddleware from "./ownerMiddleware";
 
 export {
   SchemaMiddleware,
