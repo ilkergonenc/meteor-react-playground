@@ -1,5 +1,15 @@
+import { Meteor } from "meteor/meteor";
 import { ValidatedMethod } from "meteor/mdg:validated-method";
+
 import SimpleSchema from "simpl-schema";
+
+import {
+  SchemaMiddleware,
+  AuthMiddleware,
+  UniqueKeysMiddleware,
+  OwnerMiddleware,
+} from "../@/middlewares";
+
 import { HostsCollection } from "./hosts";
 
 const fetchHostIdFromAddress = new ValidatedMethod({
@@ -7,7 +17,7 @@ const fetchHostIdFromAddress = new ValidatedMethod({
   schema: {
     address: { type: String },
   },
-  mixins: [SchemaMixin],
+  mixins: [SchemaMiddleware],
   run({ address }) {
     const host = HostsCollection.findOne({ address }, { fields: { _id: 1 } });
     if (typeof host === undefined) {
@@ -17,9 +27,65 @@ const fetchHostIdFromAddress = new ValidatedMethod({
   },
 });
 
-function SchemaMixin(methodOptions) {
-  methodOptions.validate = new SimpleSchema(methodOptions.schema).validator();
-  return methodOptions;
-}
+const insertHost = new ValidatedMethod({
+  name: "hosts.insert",
+  collection: HostsCollection,
+  uniqueKeys: ["address"],
+  schema: {
+    address: { type: String },
+    name: { type: String },
+    title: { type: String },
+  },
+  mixins: [SchemaMiddleware, AuthMiddleware, UniqueKeysMiddleware],
+  run({ address, name, title }) {
+    return HostsCollection.insert({
+      userId: this.userId,
+      address,
+      name,
+      title,
+    });
+  },
+});
 
-export { fetchHostIdFromAddress };
+const updateHost = new ValidatedMethod({
+  name: "hosts.update",
+  collection: HostsCollection,
+  idKey: "hostId",
+  uniqueKeys: ["address"],
+  schema: {
+    hostId: { type: String, regEx: SimpleSchema.RegEx.Id },
+    address: { type: String },
+    name: { type: String },
+    title: { type: String },
+  },
+  mixins: [
+    SchemaMiddleware,
+    AuthMiddleware,
+    UniqueKeysMiddleware,
+    OwnerMiddleware,
+  ],
+  run({ hostId, address, name, title }) {
+    HostsCollection.update(hostId, {
+      $set: {
+        address,
+        name,
+        title,
+      },
+    });
+  },
+});
+
+const removeHost = new ValidatedMethod({
+  name: "hosts.remove",
+  collection: HostsCollection,
+  idKey: "hostId",
+  schema: {
+    hostId: { type: String, regEx: SimpleSchema.RegEx.Id },
+  },
+  mixins: [SchemaMiddleware, AuthMiddleware, OwnerMiddleware],
+  run({ hostId }) {
+    HostsCollection.remove(hostId);
+  },
+});
+
+export { fetchHostIdFromAddress, insertHost, updateHost, removeHost };
