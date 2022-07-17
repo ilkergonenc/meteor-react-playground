@@ -1,5 +1,12 @@
 import { Meteor } from "meteor/meteor";
 
+/**
+ * @param {*} methodOptions
+ * mehtodOptions must have
+ * collection: MongoCollection
+ * idKey: String
+ * @returns
+ */
 export default function OwnerMiddleware(methodOptions) {
   const runFunction = methodOptions.run;
 

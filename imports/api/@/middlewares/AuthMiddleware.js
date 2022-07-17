@@ -1,5 +1,9 @@
 import { Meteor } from "meteor/meteor";
 
+/**
+ * @param {*} methodOptions
+ * @returns
+ */
 export default function AuthMiddleware(methodOptions) {
   const runFunction = methodOptions.run;
   methodOptions.run = function () {
