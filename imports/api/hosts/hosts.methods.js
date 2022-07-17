@@ -1,59 +1,91 @@
 import { Meteor } from "meteor/meteor";
-import { check } from "meteor/check";
+import { ValidatedMethod } from "meteor/mdg:validated-method";
+
+import SimpleSchema from "simpl-schema";
+
+import {
+  SchemaMiddleware,
+  AuthMiddleware,
+  UniqueKeysMiddleware,
+  OwnerMiddleware,
+} from "../@/middlewares";
 
 import { HostsCollection } from "./hosts";
 
-Meteor.methods({
-  "hosts.insert"(address, name, title) {
-    check(address, String);
-    check(name, String);
-    check(title, String);
-
-    if (!this.userId) {
-      throw new Meteor.Error("Not authorized.");
+const fetchHostIdFromAddress = new ValidatedMethod({
+  name: "hosts.fetchIdByAddress",
+  schema: {
+    address: { type: String },
+  },
+  mixins: [SchemaMiddleware],
+  run({ address }) {
+    const host = HostsCollection.findOne({ address }, { fields: { _id: 1 } });
+    if (typeof host === undefined) {
+      throw new Meteor.Error("Not found.");
     }
+    return host?._id;
+  },
+});
 
-    HostsCollection.insert({
+const insertHost = new ValidatedMethod({
+  name: "hosts.insert",
+  collection: HostsCollection,
+  uniqueKeys: ["address"],
+  schema: {
+    address: { type: String },
+    name: { type: String },
+    title: { type: String },
+  },
+  mixins: [SchemaMiddleware, AuthMiddleware, UniqueKeysMiddleware],
+  run({ address, name, title }) {
+    return HostsCollection.insert({
       userId: this.userId,
       address,
       name,
       title,
     });
   },
+});
 
-  "hosts.update"(hostId, hostValues) {
-    check(hostId, String);
-
-    if (!this.userId) {
-      throw new Meteor.Error("Not authorized.");
-    }
-
-    const host = HostsCollection.findOne({ _id: hostId, userId: this.userId });
-
-    if (!host) {
-      throw new Meteor.Error("Access denied.");
-    }
-
+const updateHost = new ValidatedMethod({
+  name: "hosts.update",
+  collection: HostsCollection,
+  idKey: "hostId",
+  uniqueKeys: ["address"],
+  schema: {
+    hostId: { type: String, regEx: SimpleSchema.RegEx.Id },
+    address: { type: String },
+    name: { type: String },
+    title: { type: String },
+  },
+  mixins: [
+    SchemaMiddleware,
+    AuthMiddleware,
+    UniqueKeysMiddleware,
+    OwnerMiddleware,
+  ],
+  run({ hostId, address, name, title }) {
     HostsCollection.update(hostId, {
       $set: {
-        ...hostValues,
+        address,
+        name,
+        title,
       },
     });
   },
+});
 
-  "hosts.remove"(hostId) {
-    check(hostId, String);
-
-    if (!this.userId) {
-      throw new Meteor.Error("Not authorized.");
-    }
-
-    const host = HostsCollection.findOne({ _id: hostId, userId: this.userId });
-
-    if (!host) {
-      throw new Meteor.Error("Access denied.");
-    }
-
+const removeHost = new ValidatedMethod({
+  name: "hosts.remove",
+  collection: HostsCollection,
+  idKey: "hostId",
+  schema: {
+    hostId: { type: String, regEx: SimpleSchema.RegEx.Id },
+  },
+  mixins: [SchemaMiddleware, AuthMiddleware, OwnerMiddleware],
+  run({ hostId }) {
     HostsCollection.remove(hostId);
   },
 });
+
+export { fetchHostIdFromAddress, insertHost, updateHost, removeHost };
