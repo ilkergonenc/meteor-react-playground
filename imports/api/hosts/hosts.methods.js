@@ -11,6 +11,7 @@ import {
 } from "../@/middlewares";
 
 import { HostsCollection } from "./hosts";
+import { hostRepository } from "./hostRepository";
 
 const fetchHostIdFromAddress = new ValidatedMethod({
   name: "hosts.fetchIdByAddress",
@@ -38,7 +39,7 @@ const insertHost = new ValidatedMethod({
   },
   mixins: [SchemaMiddleware, AuthMiddleware, UniqueKeysMiddleware],
   run({ address, name, title }) {
-    return HostsCollection.insert({
+    return hostRepository.insert({
       userId: this.userId,
       address,
       name,
