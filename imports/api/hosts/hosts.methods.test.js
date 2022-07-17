@@ -1,9 +1,9 @@
 import { Meteor } from "meteor/meteor";
 import { Random } from "meteor/random";
-import { mockMethodCall } from "meteor/quave:testing";
+
 import { assert } from "chai";
+
 import { HostsCollection } from "/imports/api/hosts/hosts";
-// import "./hosts.methods";
 import {
   insertHost,
   updateHost,

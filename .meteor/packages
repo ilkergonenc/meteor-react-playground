@@ -31,4 +31,3 @@ dburles:collection-helpers
 mdg:validation-error
 mdg:validated-method
 meteortesting:mocha
-quave:testing
