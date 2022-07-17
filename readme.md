@@ -57,3 +57,4 @@ Back-end starts with the Mongo Collection and to have a intact and readable code
 
 - https://guide.meteor.com/collections.html#hooks
 - https://github.com/Meteor-Community-Packages/meteor-collection-hooks/
+- http://www.discovermeteor.com/blog/a-look-at-meteor-collection-hooks/
