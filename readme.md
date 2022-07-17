@@ -58,3 +58,11 @@ Back-end starts with the Mongo Collection and to have a intact and readable code
 - https://guide.meteor.com/collections.html#hooks
 - https://github.com/Meteor-Community-Packages/meteor-collection-hooks/
 - http://www.discovermeteor.com/blog/a-look-at-meteor-collection-hooks/
+
+## Super Methods; Validation, Middlewares & DDP Rate Limiter
+
+### Advanced Methods
+
+- https://guide.meteor.com/methods.html#advanced-boilerplate
+- https://guide.meteor.com/methods.html#validated-method
+- https://github.com/meteor/validated-method

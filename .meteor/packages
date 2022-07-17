@@ -29,3 +29,5 @@ accounts-password
 aldeed:collection2
 matb33:collection-hooks
 dburles:collection-helpers
+mdg:validation-error
+mdg:validated-method
