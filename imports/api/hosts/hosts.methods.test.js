@@ -46,15 +46,21 @@ if (Meteor.isServer) {
         assert.equal(HostsCollection.find().count(), 1);
       });
 
-      // it("can change the status of a host", () => {
-      //   const originalTask = HostsCollection.findOne(hostId);
-      //   mockMethodCall("hosts.setIsChecked", hostId, !originalTask.isChecked, {
-      //     context: { userId },
-      //   });
+      it("can change a host", () => {
+        const originalTask = HostsCollection.findOne(hostId);
+        updateHost._execute(
+          { userId },
+          {
+            hostId,
+            address: "local.test",
+            name: "Local Host Test",
+            title: "Testing",
+          }
+        );
 
-      //   const updatedTask = HostsCollection.findOne(hostId);
-      //   assert.notEqual(updatedTask.isChecked, originalTask.isChecked);
-      // });
+        const updatedTask = HostsCollection.findOne(hostId);
+        assert.notEqual(updatedTask.address, originalTask.address);
+      });
 
       it("can insert new hosts", () => {
         const address = "local.test";
