@@ -27,3 +27,34 @@ First a basic setup, later provider and middlewares
 and setting loadable components
 
 - https://github.com/CaptainN/npdev-react-loadable
+
+## BACKEND
+
+- Collections
+- Methods
+- Publications
+- Repositories
+- Services
+- Events
+
+## Super Collections; Schemas, Helpers & Hooks
+
+Back-end starts with the Mongo Collection and to have a intact and readable code these are the important steps to have a more defined and configuarable Collection (Modal, Module or Domain)
+
+### Collections and Schemas
+
+- https://guide.meteor.com/collections.html
+- https://github.com/longshotlabs/simpl-schema
+- https://atmospherejs.com/aldeed/collection2
+
+### Collection & Assosiation Helpers
+
+- https://guide.meteor.com/collections.html#collection-helpers
+- https://guide.meteor.com/collections.html#association-helpers
+- https://atmospherejs.com/dburles/collection-helpers
+
+### Collection Hooks on insert | update | remove
+
+- https://guide.meteor.com/collections.html#hooks
+- https://github.com/Meteor-Community-Packages/meteor-collection-hooks/
+- http://www.discovermeteor.com/blog/a-look-at-meteor-collection-hooks/
