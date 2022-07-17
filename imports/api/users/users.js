@@ -53,6 +53,6 @@ if (Meteor.isServer) {
     options
   ) {
     modifier.$set = modifier.$set || {};
-    modifier.$set.updatedAt = Date.now();
+    modifier.$set.updatedAt = new Date();
   });
 }
