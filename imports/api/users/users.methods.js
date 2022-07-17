@@ -22,18 +22,18 @@ Meteor.methods({
     });
   },
 
-  "users.login"(username, password) {
-    check(username, String);
-    check(password, String);
+  // "users.login"(username, password) {
+  //   check(username, String);
+  //   check(password, String);
 
-    if (!Accounts.findUserByUsername(username)) {
-      throw new Meteor.Error("Doesn't exists.");
-    }
+  //   if (!Accounts.findUserByUsername(username)) {
+  //     throw new Meteor.Error("Doesn't exists.");
+  //   }
 
-    Meteor.loginWithPassword(username, password);
-  },
+  //   Meteor.loginWithPassword(username, password);
+  // },
 
-  "users.logout"() {
-    Meteor.logout();
-  },
+  // "users.logout"() {
+  //   Meteor.logout();
+  // },
 });
