@@ -66,3 +66,11 @@ Back-end starts with the Mongo Collection and to have a intact and readable code
 - https://guide.meteor.com/methods.html#advanced-boilerplate
 - https://guide.meteor.com/methods.html#validated-method
 - https://github.com/meteor/validated-method
+
+## Testing
+
+Started with the tutorial and guide. Some changes due to validatedMethods usage.
+
+- https://guide.meteor.com/testing.html
+- https://react-tutorial.meteor.com/simple-todos/12-testing.html
+- https://github.com/meteor/validated-method#method_executecontext-object-args-object
