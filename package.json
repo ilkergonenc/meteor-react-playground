@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "play": "meteor run -p 7070",
-    "test": "meteor test --once --driver-package meteortesting:mocha",
-    "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
-    "visualize": "meteor --production --extra-packages bundle-visualizer"
+    "test": "meteor test --once --driver-package meteortesting:mocha -p 7080",
+    "test-app": "cross-env TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha -p 7080",
+    "visualize": "meteor --production --extra-packages bundle-visualizer -p 7080"
   },
   "dependencies": {
     "@babel/runtime": "^7.17.9",
@@ -25,6 +25,8 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.7",
+    "chai": "^4.3.6",
+    "cross-env": "^7.0.3",
     "postcss": "^8.4.14",
     "postcss-import": "^14.1.0",
     "postcss-load-config": "^4.0.1",
