@@ -1,79 +1,61 @@
 import { Meteor } from "meteor/meteor";
-import { check } from "meteor/check";
+import { ValidatedMethod } from "meteor/mdg:validated-method";
+
+import SimpleSchema from "simpl-schema";
+
+import {
+  SchemaMiddleware,
+  AuthMiddleware,
+  OwnerMiddleware,
+} from "../@/middlewares";
 
 import { NodesCollection } from "./nodes";
 
-Meteor.methods({
-  "nodes.insert"(title) {
-    check(title, String);
-
-    if (!this.userId) {
-      throw new Meteor.Error("Not authorized.");
-    }
-
-    NodesCollection.insert({
-      title,
-      createdAt: new Date(),
+const insertHost = new ValidatedMethod({
+  name: "nodes.insert",
+  schema: {
+    hostId: { type: String, regEx: SimpleSchema.RegEx.Id },
+    title: { type: String, max: 260 },
+  },
+  mixins: [SchemaMiddleware, AuthMiddleware],
+  run({ hostId, title }) {
+    return NodesCollection.insert({
       userId: this.userId,
+      hostId,
+      title,
     });
   },
+});
 
-  "nodes.remove"(nodeId) {
-    check(nodeId, String);
-
-    if (!this.userId) {
-      throw new Meteor.Error("Not authorized.");
-    }
-
-    const node = NodesCollection.findOne({ _id: nodeId, userId: this.userId });
-
-    if (!node) {
-      throw new Meteor.Error("Access denied.");
-    }
-
-    NodesCollection.remove(nodeId);
+const updateHost = new ValidatedMethod({
+  name: "nodes.update",
+  collection: NodesCollection,
+  idKey: "nodeId",
+  schema: {
+    hostId: { type: String, regEx: SimpleSchema.RegEx.Id },
+    title: { type: String, max: 260 },
   },
-
-  "nodes.update"(nodeId, nodeValues) {
-    check(nodeId, String);
-    check(isPublished, Boolean);
-
-    if (!this.userId) {
-      throw new Meteor.Error("Not authorized.");
-    }
-
-    const node = NodesCollection.findOne({ _id: nodeId, userId: this.userId });
-
-    if (!node) {
-      throw new Meteor.Error("Access denied.");
-    }
-
-    NodesCollection.update(nodeId, {
+  mixins: [SchemaMiddleware, AuthMiddleware, OwnerMiddleware],
+  run({ nodeId, title }) {
+    return NodesCollection.update(nodeId, {
       $set: {
-        title: nodeValues.title,
-        isPublished: nodeValues.isPublished,
-      },
-    });
-  },
-
-  "nodes.updatePublishStatus"(nodeId, isPublished) {
-    check(nodeId, String);
-    check(isPublished, Boolean);
-
-    if (!this.userId) {
-      throw new Meteor.Error("Not authorized.");
-    }
-
-    const node = NodesCollection.findOne({ _id: nodeId, userId: this.userId });
-
-    if (!node) {
-      throw new Meteor.Error("Access denied.");
-    }
-
-    NodesCollection.update(nodeId, {
-      $set: {
-        isPublished,
+        title,
       },
     });
   },
 });
+
+const removeHost = new ValidatedMethod({
+  name: "nodes.remove",
+  collection: NodesCollection,
+  idKey: "nodeId",
+  schema: {
+    nodeId: { type: String, regEx: SimpleSchema.RegEx.Id },
+  },
+  mixins: [SchemaMiddleware, AuthMiddleware, OwnerMiddleware],
+  run({ nodeId }) {
+    return NodesCollection.remove(nodeId);
+  },
+});
+
+export { insertHost, updateHost, removeHost };
