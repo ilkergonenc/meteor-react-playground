@@ -9,9 +9,9 @@ import {
   OwnerMiddleware,
 } from "../@/middlewares";
 
-import { NodesCollection } from "./nodes";
+import { nodeRepository } from "./nodeRepository";
 
-const insertHost = new ValidatedMethod({
+const insertNode = new ValidatedMethod({
   name: "nodes.insert",
   schema: {
     hostId: { type: String, regEx: SimpleSchema.RegEx.Id },
@@ -19,7 +19,7 @@ const insertHost = new ValidatedMethod({
   },
   mixins: [SchemaMiddleware, AuthMiddleware],
   run({ hostId, title }) {
-    return NodesCollection.insert({
+    return nodeRepository.insert({
       userId: this.userId,
       hostId,
       title,
@@ -27,17 +27,17 @@ const insertHost = new ValidatedMethod({
   },
 });
 
-const updateHost = new ValidatedMethod({
+const updateNode = new ValidatedMethod({
   name: "nodes.update",
-  collection: NodesCollection,
+  collection: nodeRepository,
   idKey: "nodeId",
   schema: {
-    hostId: { type: String, regEx: SimpleSchema.RegEx.Id },
+    nodeId: { type: String, regEx: SimpleSchema.RegEx.Id },
     title: { type: String, max: 260 },
   },
   mixins: [SchemaMiddleware, AuthMiddleware, OwnerMiddleware],
   run({ nodeId, title }) {
-    return NodesCollection.update(nodeId, {
+    return nodeRepository.update(nodeId, {
       $set: {
         title,
       },
@@ -45,17 +45,17 @@ const updateHost = new ValidatedMethod({
   },
 });
 
-const removeHost = new ValidatedMethod({
+const removeNode = new ValidatedMethod({
   name: "nodes.remove",
-  collection: NodesCollection,
+  collection: nodeRepository,
   idKey: "nodeId",
   schema: {
     nodeId: { type: String, regEx: SimpleSchema.RegEx.Id },
   },
   mixins: [SchemaMiddleware, AuthMiddleware, OwnerMiddleware],
   run({ nodeId }) {
-    return NodesCollection.remove(nodeId);
+    return nodeRepository.remove(nodeId);
   },
 });
 
-export { insertHost, updateHost, removeHost };
+export { insertNode, updateNode, removeNode };
