@@ -67,6 +67,10 @@ Back-end starts with the Mongo Collection and to have a intact and readable code
 - https://guide.meteor.com/methods.html#validated-method
 - https://github.com/meteor/validated-method
 
+### Repositories
+
+- https://github.com/guncebektas/examples/blob/main/complex-todos-svelte/imports/shared/repository/baseRepository.js
+
 ## Testing
 
 Started with the tutorial and guide. Some changes due to validatedMethods usage.
