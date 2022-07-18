@@ -5,7 +5,12 @@ import React from "react";
 const loading = () => <p className="sr-only">Loading ...</p>;
 
 export const Login = Loadable({
-  loader: () => import("./Login"),
+  loader: () => import("./auth/Login"),
+  loading,
+});
+
+export const Signup = Loadable({
+  loader: () => import("./auth/Signup"),
   loading,
 });
 

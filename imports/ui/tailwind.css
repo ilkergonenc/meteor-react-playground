@@ -7,6 +7,19 @@
     @apply container mx-auto text-center py-8;
   } */
   .btn {
-    @apply px-4 py-2 border rounded;
+    @apply px-4 py-2 border rounded hover:bg-gray-200 hover:cursor-pointer;
+  }
+
+  .form-label {
+    @apply text-gray-700;
+  }
+  .form-input {
+    @apply mt-1 block w-full;
+  }
+  .form-text-helper {
+    @apply flex mt-2 text-xs text-gray-600;
+  }
+  .form-text-error {
+    @apply flex mt-2 text-sm text-red-400;
   }
 }

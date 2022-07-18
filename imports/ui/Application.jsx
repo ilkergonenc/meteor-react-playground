@@ -11,6 +11,7 @@ import { DashboardLayout } from "./middlewares/LayoutMiddlewares/DashboardLayout
 import {
   Homepage,
   Login,
+  Signup,
   Username,
   Dashboard,
   NotFound,
@@ -25,6 +26,7 @@ export default function Application() {
             <Route index element={<Homepage />} />
 
             <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
 
             <Route path="/*" element={<AuthMiddleware />}>
               <Route path="@:username" element={<Username />} />
