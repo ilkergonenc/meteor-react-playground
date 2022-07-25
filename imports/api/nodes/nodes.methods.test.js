@@ -3,7 +3,7 @@ import { Random } from "meteor/random";
 
 import { assert } from "chai";
 
-import { nodeRepository } from "/imports/api/nodes/nodeRepository";
+import { nodesRepository } from "/imports/api/nodes/nodesRepository";
 import {
   insertNode,
   updateNode,
@@ -18,8 +18,8 @@ if (Meteor.isServer) {
       let nodeId;
 
       beforeEach(() => {
-        nodeRepository.remove({});
-        nodeId = nodeRepository.insert({
+        nodesRepository.remove({});
+        nodeId = nodesRepository.insert({
           title: "Test Node",
           hostId,
           userId,
@@ -29,13 +29,13 @@ if (Meteor.isServer) {
       it("can delete owned node", () => {
         removeNode._execute({ userId }, { nodeId });
 
-        assert.equal(nodeRepository.find().count(), 0);
+        assert.equal(nodesRepository.find().count(), 0);
       });
 
       it("can't delete node without an user authenticated", () => {
         const fn = () => removeNode._execute({}, { nodeId });
         assert.throw(fn, /Not authorized/);
-        assert.equal(nodeRepository.find().count(), 1);
+        assert.equal(nodesRepository.find().count(), 1);
       });
 
       it("can't delete node from another owner", () => {
@@ -43,14 +43,14 @@ if (Meteor.isServer) {
           removeNode._execute({ userId: "somebody-else-id" }, { nodeId });
 
         assert.throw(fn, /Access denied/);
-        assert.equal(nodeRepository.find().count(), 1);
+        assert.equal(nodesRepository.find().count(), 1);
       });
 
       it("can change a node", () => {
-        const originalTask = nodeRepository.findOne(nodeId);
+        const originalTask = nodesRepository.findOne(nodeId);
         updateNode._execute({ userId }, { title: "Testing a node", nodeId });
 
-        const updatedTask = nodeRepository.findOne(nodeId);
+        const updatedTask = nodesRepository.findOne(nodeId);
         assert.notEqual(updatedTask.title, originalTask.title);
       });
 
@@ -58,7 +58,7 @@ if (Meteor.isServer) {
         const title = "local.test";
         insertNode._execute({ userId }, { title, hostId });
 
-        const hosts = nodeRepository.find({}).fetch();
+        const hosts = nodesRepository.find({}).fetch();
         assert.equal(hosts.length, 2);
         assert.isTrue(hosts.some((node) => node.title === title));
       });

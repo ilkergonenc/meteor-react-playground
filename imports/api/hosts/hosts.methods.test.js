@@ -3,7 +3,7 @@ import { Random } from "meteor/random";
 
 import { assert } from "chai";
 
-import { hostRepository } from "/imports/api/hosts/hostRepository";
+import { hostsRepository } from "/imports/api/hosts/hostsRepository";
 import {
   insertHost,
   updateHost,
@@ -17,8 +17,8 @@ if (Meteor.isServer) {
       let hostId;
 
       beforeEach(() => {
-        hostRepository.remove({});
-        hostId = hostRepository.insert({
+        hostsRepository.remove({});
+        hostId = hostsRepository.insert({
           address: "localhost.test",
           name: "Local Host Test",
           title: "Testing",
@@ -29,13 +29,13 @@ if (Meteor.isServer) {
       it("can delete owned host", () => {
         removeHost._execute({ userId }, { hostId });
 
-        assert.equal(hostRepository.find().count(), 0);
+        assert.equal(hostsRepository.find().count(), 0);
       });
 
       it("can't delete host without an user authenticated", () => {
         const fn = () => removeHost._execute({}, { hostId });
         assert.throw(fn, /Not authorized/);
-        assert.equal(hostRepository.find().count(), 1);
+        assert.equal(hostsRepository.find().count(), 1);
       });
 
       it("can't delete host from another owner", () => {
@@ -43,11 +43,11 @@ if (Meteor.isServer) {
           removeHost._execute({ userId: "somebody-else-id" }, { hostId });
 
         assert.throw(fn, /Access denied/);
-        assert.equal(hostRepository.find().count(), 1);
+        assert.equal(hostsRepository.find().count(), 1);
       });
 
       it("can change a host", () => {
-        const originalTask = hostRepository.findOne(hostId);
+        const originalTask = hostsRepository.findOne(hostId);
         updateHost._execute(
           { userId },
           {
@@ -58,7 +58,7 @@ if (Meteor.isServer) {
           }
         );
 
-        const updatedTask = hostRepository.findOne(hostId);
+        const updatedTask = hostsRepository.findOne(hostId);
         assert.notEqual(updatedTask.address, originalTask.address);
       });
 
@@ -73,7 +73,7 @@ if (Meteor.isServer) {
           }
         );
 
-        const hosts = hostRepository.find({}).fetch();
+        const hosts = hostsRepository.find({}).fetch();
         assert.equal(hosts.length, 2);
         assert.isTrue(hosts.some((host) => host.address === address));
       });
