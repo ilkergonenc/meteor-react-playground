@@ -10,7 +10,7 @@ import {
   OwnerMiddleware,
 } from "../@/middlewares";
 
-import { hostRepository } from "./hostRepository";
+import { hostsRepository } from "./hostsRepository";
 
 const fetchHostIdFromAddress = new ValidatedMethod({
   name: "hosts.fetchIdByAddress",
@@ -19,7 +19,7 @@ const fetchHostIdFromAddress = new ValidatedMethod({
   },
   mixins: [SchemaMiddleware],
   run({ address }) {
-    const host = hostRepository.findOne({ address }, { fields: { _id: 1 } });
+    const host = hostsRepository.findOne({ address }, { fields: { _id: 1 } });
     if (typeof host === undefined) {
       throw new Meteor.Error("Not found.");
     }
@@ -29,7 +29,7 @@ const fetchHostIdFromAddress = new ValidatedMethod({
 
 const insertHost = new ValidatedMethod({
   name: "hosts.insert",
-  collection: hostRepository,
+  collection: hostsRepository,
   uniqueKeys: ["address"],
   schema: {
     address: { type: String },
@@ -38,7 +38,7 @@ const insertHost = new ValidatedMethod({
   },
   mixins: [SchemaMiddleware, AuthMiddleware, UniqueKeysMiddleware],
   run({ address, name, title }) {
-    return hostRepository.insert({
+    return hostsRepository.insert({
       userId: this.userId,
       address,
       name,
@@ -49,7 +49,7 @@ const insertHost = new ValidatedMethod({
 
 const updateHost = new ValidatedMethod({
   name: "hosts.update",
-  collection: hostRepository,
+  collection: hostsRepository,
   idKey: "hostId",
   uniqueKeys: ["address"],
   schema: {
@@ -65,7 +65,7 @@ const updateHost = new ValidatedMethod({
     OwnerMiddleware,
   ],
   run({ hostId, address, name, title }) {
-    hostRepository.update(hostId, {
+    hostsRepository.update(hostId, {
       $set: {
         address,
         name,
@@ -77,14 +77,14 @@ const updateHost = new ValidatedMethod({
 
 const removeHost = new ValidatedMethod({
   name: "hosts.remove",
-  collection: hostRepository,
+  collection: hostsRepository,
   idKey: "hostId",
   schema: {
     hostId: { type: String, regEx: SimpleSchema.RegEx.Id },
   },
   mixins: [SchemaMiddleware, AuthMiddleware, OwnerMiddleware],
   run({ hostId }) {
-    hostRepository.remove(hostId);
+    hostsRepository.remove(hostId);
   },
 });
 
