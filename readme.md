@@ -78,3 +78,7 @@ Started with the tutorial and guide. Some changes due to validatedMethods usage.
 - https://guide.meteor.com/testing.html
 - https://react-tutorial.meteor.com/simple-todos/12-testing.html
 - https://github.com/meteor/validated-method#method_executecontext-object-args-object
+
+### OOP (object-oriented) JS & JS Docs (TS Like JS)
+
+- https://jsdoc.app/

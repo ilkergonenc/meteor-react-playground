@@ -1,10 +1,12 @@
+import { Mongo } from "meteor/mongo";
+
 /**
  * Base class containing repository functionality
  */
 class MongoRepository {
   /**
    * @constructor
-   * @param collection {Mongo.Collection}
+   * @param {Mongo.Collection} collection
    */
   constructor(collection) {
     /**
@@ -12,17 +14,12 @@ class MongoRepository {
      * @type {Mongo.Collection}
      */
     this._collection = collection;
-
-    /**
-     * @private
-     */
-    this._collectionName = collection._name;
   }
 
   /**
    * Finds documents based on provided selector and options
-   * @param selector {string|object} [optional]
-   * @param options {object} [optional]
+   * @param {(string|object)} [selector]
+   * @param {object} [options]
    * @returns {Mongo.Cursor}
    */
   find(selector = {}, options = {}) {
@@ -31,8 +28,8 @@ class MongoRepository {
 
   /**
    * Finds one document only
-   * @param selector {string|object}
-   * @param options {object} [optional]
+   * @param {(string|object)} selector
+   * @param {object} [options]
    * @returns {object}
    */
   findOne(selector = {}, options = {}) {
@@ -41,7 +38,7 @@ class MongoRepository {
 
   /**
    * Inserts a document and returns the id of it
-   * @param document {object}
+   * @param {object} document
    * @returns {string}
    */
   insert(document) {
@@ -50,9 +47,9 @@ class MongoRepository {
 
   /**
    * Inserts or updates a document
-   * @param selector {string|object}
-   * @param updateObject {object}
-   * @param options {object}
+   * @param {(string|object)} selector
+   * @param {object} updateObject
+   * @param {object} [options]
    */
   upsert(selector, updateObject, options = null) {
     this._collection.upsert(selector, updateObject, options);
@@ -61,9 +58,9 @@ class MongoRepository {
   /**
    * Updates a document
    * @example Notifications.update({assignedTo: userId}, {$set: {'isRead': true}}, {multi: true});
-   * @param selector {string|object}
-   * @param updateObject {object}
-   * @param options {object}
+   * @param {(string|object)} selector
+   * @param {object} updateObject
+   * @param {object} [options]
    */
   update(selector, updateObject, options = null) {
     this._collection.update(selector, updateObject, options);
@@ -71,8 +68,8 @@ class MongoRepository {
 
   /**
    * Updates all matching documents
-   * @param selector {string|object}
-   * @param updateObject {object}
+   * @param {(string|object)} selector
+   * @param {object} updateObject
    */
   updateMany(selector, updateObject) {
     this._collection.update(selector, updateObject, { multi: true });
@@ -80,8 +77,8 @@ class MongoRepository {
 
   /**
    * Updates id of provided document
-   * @param document {object}
-   * @param newId {string}
+   * @param {object} document
+   * @param {string} newId
    */
   updateId(document, newId) {
     this.remove(document._id);
@@ -93,7 +90,7 @@ class MongoRepository {
 
   /**
    * Removes a document with id or selector
-   * @param selector {string|object}
+   * @param {(string|object)} selector
    * @returns {number} affected row count
    */
   remove(selector) {
@@ -102,8 +99,8 @@ class MongoRepository {
 
   /**
    * Counts the number of documents for provided selector
-   * @param selector {object}
-   * @param options {object}
+   * @param {(string|object)} [selector]
+   * @param {object} [options]
    * @returns {number}
    */
   count(selector = {}, options = {}) {
